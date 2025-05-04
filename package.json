@@ -1,7 +1,10 @@
 {
-  "name": "trabalho",
+  "name": "nota-facil",
+  "version": "0.1.0",
+  "description": "Aplicação de anotações com React e API Go + PostgreSQL",
+  "author": "Douglas Seramim <douglasfseramim@gmail.com>",
+  "license": "MIT",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
