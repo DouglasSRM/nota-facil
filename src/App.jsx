@@ -12,12 +12,12 @@ function App() {
   const [selectedNotes, setSelectedNotes] = useState([])
   const [isSelecting, setIsSelecting] = useState(false)
 
-  const handleCreateNote = () => {
+  const handleCreateNote = async () => {
     const newNote = {
       title: 'Nova Nota',
       content: ''
     }
-    const createdNote = addNote(newNote)
+    const createdNote = await addNote(newNote)
     setEditingNote(createdNote)
   }
 
@@ -27,7 +27,7 @@ function App() {
         prev.includes(note.id)
           ? prev.filter(id => id !== note.id)
           : [...prev, note.id]
-      )   
+      )
     } else {
       setEditingNote(note)
     }
@@ -35,7 +35,6 @@ function App() {
 
   const handleLongPress = (noteId) => {
     setIsSelecting(true)
-    //setSelectedNotes([noteId])
   }
 
   const cancelSelection = () => {
@@ -54,23 +53,23 @@ function App() {
   }
 
   const handleDeleteNote = (note) => {
-    const confirma = window.confirm('Deseja excluir essa anotação?');
+    const confirma = window.confirm("Deseja excluir essa nota?")
 
     if (confirma) {
       if (editingNote && editingNote.id === note.id) {
-        setEditingNote(null);
+        setEditingNote(null)
       }
       deleteNotes([note.id])
     }
   }
 
   const sortedNotes = [...notes].sort((a, b) => {
-    return new Date(b.lastEdited) - new Date(a.lastEdited);
-  });
+    return new Date(b.lastEdited) - new Date(a.lastEdited)
+  })
 
   return (
     <div className="app-container">
-      <Header 
+      <Header
         onCreateNote={handleCreateNote}
         isSelecting={isSelecting}
         onCancelSelection={cancelSelection}
@@ -78,14 +77,14 @@ function App() {
         hasSelected={selectedNotes.length > 0}
         selectedCount={selectedNotes.length}
       />
-      
+
       <main className="notes-container">
         {editingNote ? (
-          <NoteEditor 
-            note={editingNote} 
+          <NoteEditor
+            note={editingNote}
             onSave={handleSaveNote}
             onDelete={handleDeleteNote}
-            onClose={() => setEditingNote(null)} 
+            onClose={() => setEditingNote(null)}
           />
         ) : (
           <>

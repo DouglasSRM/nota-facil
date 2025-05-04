@@ -1,44 +1,44 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { fetchNotes, createNote, updateNote, deleteNotes } from '../api'
 
 export function useNotes() {
-  const [notes, setNotes] = useState(() => {
-    const savedNotes = localStorage.getItem('notes')
-    return savedNotes ? JSON.parse(savedNotes) : []
-  })
-
+  const [notes, setNotes] = useState([]);
+  
   useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes))
-    console.log(JSON.stringify(notes))
-  }, [notes])
+    const loadNotes = async () => {
+      const fetchedNotes = await fetchNotes();
+      setNotes(Array.isArray(fetchedNotes) ? fetchedNotes : [])
+    }
+    loadNotes()
+  }, [])
 
-  const addNote = (note) => {
+  const addNote = async (note) => {
     const newNote = {
       ...note,
       id: uuidv4(),
       lastEdited: new Date().toISOString()
     }
-    setNotes(prev => [newNote, ...prev])
-    return newNote
+    const createdNote = await createNote(newNote)
+    setNotes(prev => [createdNote, ...prev])
+    return createdNote
   }
 
-  const updateNote = (updatedNote) => {
+  const updateNoteHandler = async (updatedNote) => {
+    const updatedData = {
+      ...updatedNote,
+      lastEdited: new Date().toISOString()
+    };
+    const updatedNoteData = await updateNote(updatedData);
     setNotes(prev =>
-      prev.map(note =>
-        note.id === updatedNote.id ? {
-          ...updatedNote,
-          lastEdited: new Date().toISOString()
-        } : note
-      )
-    )
-  }
+      prev.map(note => (note.id === updatedNoteData.id ? updatedNoteData : note))
+    );
+  };
 
-  const deleteNotes = (noteIds) => {
-    setNotes(prev => {
-      const updatedNotes = prev.filter(note => !noteIds.includes(note.id))
-      return updatedNotes
-    })
-  }
+  const deleteNotesHandler = async (noteIds) => {
+    await deleteNotes(noteIds);
+    setNotes(prev => prev.filter((note) => !noteIds.includes(note.id)));
+  };
 
-  return { notes, addNote, updateNote, deleteNotes }
+  return { notes, addNote, updateNote: updateNoteHandler, deleteNotes: deleteNotesHandler }
 } 
