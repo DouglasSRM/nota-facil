@@ -9,7 +9,20 @@
     --danger-color: #cf6679;
     --border-color: #333;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  }
+  } 
+/*
+  :root {
+    --bg-primary: #f5f5f5;     
+    --bg-secondary: #ffffff;   
+    --bg-tertiary: #eaeaea;   
+    --text-primary: #1e1e1e;     
+    --text-secondary: #555555;   
+    --accent-color: #7b3fe4;     
+    --accent-hover: #5c2db2;     
+    --danger-color: #d32f2f;     
+    --border-color: #ccc;       
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  } */
   
   * {
     margin: 0;
