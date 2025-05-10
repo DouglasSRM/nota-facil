@@ -27,7 +27,6 @@ export const fetchNotes = async () => {
 export const createNote = async (note) => {
     try {
         const config = await getAuthHeader()
-        console.log(config)
         const response = await axios.post(`${API_URL}/post`, note, config)
         return response.data
     } catch (error) {
