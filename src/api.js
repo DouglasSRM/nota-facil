@@ -1,10 +1,22 @@
 import axios from "axios"
+import { getAuth } from "firebase/auth"
 
 const API_URL = import.meta.env.VITE_API_URL
 
+async function getAuthHeader() {
+    const user = getAuth().currentUser
+    const token = user ? await user.getIdToken() : null
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  }
+
 export const fetchNotes = async () => {
     try {
-        const response = await axios.get(`${API_URL}/get`)
+        const config = await getAuthHeader()
+        const response = await axios.get(`${API_URL}/get`, config)
         return response.data
     } catch (error) {
         console.error("Erro ao buscar notas", error)
@@ -14,7 +26,9 @@ export const fetchNotes = async () => {
 
 export const createNote = async (note) => {
     try {
-        const response = await axios.post(`${API_URL}/post`, note)
+        const config = await getAuthHeader()
+        console.log(config)
+        const response = await axios.post(`${API_URL}/post`, note, config)
         return response.data
     } catch (error) {
         console.error("Erro ao criar nota", error)
@@ -23,7 +37,8 @@ export const createNote = async (note) => {
 
 export const updateNote = async (note) => {
     try {
-        const response = await axios.put(`${API_URL}/update/${note.id}`, note)
+        const config = await getAuthHeader()
+        const response = await axios.put(`${API_URL}/update/${note.id}`, note, config)
         return response.data
     } catch (error) {
         console.error("Erro ao atualizar nota", error)
@@ -32,7 +47,8 @@ export const updateNote = async (note) => {
 
 export const deleteNotes = async (noteIds) => {
     try {
-        await axios.post(`${API_URL}/delete`, { ids: noteIds } )
+        const config = await getAuthHeader()
+        await axios.post(`${API_URL}/delete`, { ids: noteIds }, config)
     } catch (error) {
         console.error("Erro ao deletar notas", error)
     }
