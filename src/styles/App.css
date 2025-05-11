@@ -41,7 +41,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 320px;
 }
 
 .login-input {
@@ -56,7 +56,7 @@
 
 .login-button {
   padding: 10px;
-  background-color: var(--accent-hover);
+  background-color: var(--accent-color);
   color: var(--text-primary);
   border: none;
   border-radius: 5px;
@@ -77,27 +77,32 @@
 }
 
 .login-header {
+  position: relative; 
   display: flex;
   align-items: center;
-  vertical-align: top;
   gap: 10px;
+  height: 60px;
 }
 
 .login-logo {
   width: 50px;
   height: 50px;
-  text-align: center;
-  background-color: white;
+  top: 0%;
+  transform: translateY(-25%);
   object-fit: contain;
-  margin-bottom: 10px;
+  background-color: white;
   border-radius: 20%;
 }
 
 .login-title {
-  padding-left: 18px;
-  margin-bottom: 10px;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  margin: 0;
   text-align: center;
   color: var(--text-primary);
+  font-size: 1.5rem;
 }
 
 .link-text {
@@ -132,7 +137,7 @@
 .app-header {
   min-height: 88px;
   background-color: var(--bg-secondary);
-  padding: var(--space-md);
+  padding: var(--space-md) var(--space-xl);
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
@@ -147,6 +152,14 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 
 /* ==================== */
 /* BOTÕES */
@@ -174,9 +187,9 @@
 }
 
 .icon-button:focus {
-  outline: 2px solid var(--accent-color);
+  outline: none;/*2px solid var(--accent-color);*/
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(187, 134, 252, 0.2);
+  box-shadow: none;/*0 0 0 4px rgba(187, 134, 252, 0.2);*/
 }
 
 .icon-button::after {
@@ -398,7 +411,7 @@
   }
 
   .app-header {
-    padding: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
   }
 }
 

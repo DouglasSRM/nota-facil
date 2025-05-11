@@ -54,7 +54,6 @@ export default function Signin() {
                     <h2 className="login-title">Cadastro</h2>
                 </div>
                 
-
                 <input
                     className="login-input"
                     type="email"

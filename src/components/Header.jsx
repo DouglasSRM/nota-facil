@@ -1,4 +1,5 @@
-import { FiPlus, FiTrash2, FiX } from "react-icons/fi";
+import { FiPlus, FiTrash2, FiX, FiSun, FiMoon } from "react-icons/fi"
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function Header({
   onCreateNote,
@@ -8,6 +9,11 @@ export default function Header({
   hasSelected,
   selectedCount,
 }) {
+
+  const { theme, toggleTheme } = useTheme()
+  
+  var isDark = theme.name !== 'light'
+
   return (
     <header className="app-header">
       <div className="header-content">
@@ -32,10 +38,17 @@ export default function Header({
           </>
         ) : (
           <>
-            <h1>NotaFácil</h1>
-            <button onClick={onCreateNote} className="icon-button">
-              <FiPlus size={24} />
-            </button>
+            <div className="header-left">
+              <h1>NotaFácil</h1>
+            </div>
+            <div className="header-right">
+              <button onClick={onCreateNote} className="icon-button">
+                <FiPlus size={24} />
+              </button>
+              <button onClick={toggleTheme} className="icon-button">
+                {isDark ? <FiSun size={24} /> : <FiMoon size={24} />}
+              </button>
+            </div>
           </>
         )}
       </div>

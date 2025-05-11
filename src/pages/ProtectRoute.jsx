@@ -10,5 +10,4 @@ export function ProtectRoute({children}) {
     }
 
     return children
-
 }

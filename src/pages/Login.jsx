@@ -111,7 +111,6 @@ export default function Login() {
 
                 <button className="login-button" type="submit">Entrar</button>
 
-
                 <p className="link-text">
                     Não possui conta?{" "}
                     <span className="link" onClick={handleCadastro}>
@@ -121,7 +120,6 @@ export default function Login() {
                 <p className="login-text" onClick={enviarRedefinicaoSenha}>
                     Esqueceu sua senha?
                 </p>
-
                 
                 {/* Área para outros métodos 
                 <div style={styles.otherLoginContainer}>

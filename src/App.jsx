@@ -5,25 +5,27 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import Signin from './pages/Signin'
 import { ProtectRoute } from './pages/ProtectRoute'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 function App() {
   return (
-    <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element = {<Login/>}/>
-
-         
-             <Route path="/home" element={
-              <ProtectRoute>
-                <Home/>
-             // </ProtectRoute>
-            }/> 
+    <ThemeProvider>
+      <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element = {<Login/>}/>
+              
+              <Route path="/home" element={
+                <ProtectRoute>
+                  <Home/>
+               </ProtectRoute>
+              }/> 
 
             <Route path="/signin" element = {<Signin/>}/> 
           </Routes>
         </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 

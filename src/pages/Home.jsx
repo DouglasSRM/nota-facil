@@ -13,6 +13,10 @@ function Home() {
   const [isSelecting, setIsSelecting] = useState(false)
 
   const handleCreateNote = async () => {
+    if (editingNote !== null) {
+      return
+    }
+    
     const newNote = {
       title: 'Nova Nota',
       content: ''
