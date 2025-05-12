@@ -42,11 +42,11 @@ export default function Header({
               <h1>NotaFácil</h1>
             </div>
             <div className="header-right">
-              <button onClick={onCreateNote} className="icon-button">
-                <FiPlus size={24} />
-              </button>
               <button onClick={toggleTheme} className="icon-button">
                 {isDark ? <FiSun size={24} /> : <FiMoon size={24} />}
+              </button>
+              <button onClick={onCreateNote} className="icon-button">
+                <FiPlus size={24} />
               </button>
             </div>
           </>
