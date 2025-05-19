@@ -20,6 +20,7 @@ export const fetchNotes = async () => {
         return response.data
     } catch (error) {
         console.error("Erro ao buscar notas", error)
+        alert('Ocorreu um erro ao exibir as notas, tente novamente em alguns segundos ou contate um desenvolvedor!')
         return []
     }
 }

@@ -5,12 +5,16 @@ import NoteCard from '../components/NoteCard'
 import NoteEditor from '../components/NoteEditor'
 import '../styles/theme.css'
 import '../styles/App.css'
+import { useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const { notes, addNote, updateNote, deleteNotes } = useNotes()
   const [editingNote, setEditingNote] = useState(null)
   const [selectedNotes, setSelectedNotes] = useState([])
   const [isSelecting, setIsSelecting] = useState(false)
+  const { logout } = useAuth()
+  const navigate = useNavigate();
 
   const handleCreateNote = async () => {
     if (editingNote !== null) {
@@ -71,6 +75,20 @@ function Home() {
     return new Date(b.lastEdited) - new Date(a.lastEdited)
   })
 
+  const handleLogout = async () => {
+    if (!window.confirm('Deseja desconectar da sua conta?')) {
+      return
+    }
+    
+    try {
+      await logout()
+      navigate("/")
+    } catch (error) {
+      console.error("Erro ao sair:", error);
+      alert('Ocorreu um erro ao deslogar.')
+    }
+  }
+
   return (
     <div className="app-container">
       <Header
@@ -80,6 +98,7 @@ function Home() {
         onDeleteSelected={handleDeleteSelected}
         hasSelected={selectedNotes.length > 0}
         selectedCount={selectedNotes.length}
+        logout={handleLogout}
       />
 
       <main className="notes-container">

@@ -20,7 +20,7 @@ export default function Login() {
             return;
         }
 
-        try{
+        try {
             const userCredential = await signInWithEmailAndPassword(auth, email, senha);
             const user = userCredential.user;
 
